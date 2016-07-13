@@ -16,6 +16,7 @@ import scala.util.{ Failure, Success, Try }
 import scala.annotation.tailrec
 import scala.collection.immutable
 import akka.parboiled2.util.Base64
+import akka.event.Logging
 import akka.http.impl.util._
 import akka.http.javadsl.{ model ⇒ jm }
 import akka.http.scaladsl.model._
@@ -39,7 +40,7 @@ sealed abstract class ModeledCompanion[T: ClassTag] extends Renderable {
 /** INTERNAL API */
 private[akka] object ModeledCompanion {
   def nameFromClass[T](clazz: Class[T]): String = {
-    val name = clazz.getSimpleName.replace("$minus", "-")
+    val name = Logging.simpleName(clazz).replace("$minus", "-")
     if (name.last == '$') name.dropRight(1) // trailing $
     else name
   }
