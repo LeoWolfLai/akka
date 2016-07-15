@@ -82,7 +82,7 @@ trait FileUploadDirectives {
       }
 
     }.flatMap {
-      case Some(tuple) ⇒ provide(tuple)
+      case Some(tuple) ⇒ println("Leo test");provide(tuple)
       case None        ⇒ reject(MissingFormFieldRejection(fieldName))
     }
 }
